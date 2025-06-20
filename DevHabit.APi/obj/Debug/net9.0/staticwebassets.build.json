@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "FoQqyNBGBJWQcAUghQrx8bl3c/6N8i/h/9OnJGlXcIo=",
+  "Source": "DevHabit.APi",
+  "BasePath": "_content/DevHabit.APi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

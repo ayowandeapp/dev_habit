@@ -1,0 +1,6 @@
+@DevHabit.APi_HostAddress = http://localhost:5243
+
+GET {{DevHabit.APi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
