@@ -13,7 +13,8 @@ namespace DevHabit.APi.Data
         public DbSet<Habit> Habits { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.HasDefaultSchema(Schemas.App);
+            //dedicated schema 
+            // modelBuilder.HasDefaultSchema(Schemas.App); 
 
             //Apply configurations
             // modelBuilder.ApplyConfiguration(new HabitConfiguration()); //OR
