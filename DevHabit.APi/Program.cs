@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers(options =>
 {
-    options.ReturnHttpNotAcceptable = true;
+    options.ReturnHttpNotAcceptable = false;///
 })
 .AddXmlSerializerFormatters();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
