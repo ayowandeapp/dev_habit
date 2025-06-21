@@ -70,6 +70,23 @@ namespace DevHabit.APi.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteHabit(string id)
+        {
+            Habit? habit = await context.Habits.FirstOrDefaultAsync(h => h.Id == id);
+
+            if (habit is null)
+            {
+                return NotFound();
+            }
+
+            context.Habits.Remove(habit);
+            await context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
         
     }
 }
