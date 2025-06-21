@@ -69,10 +69,33 @@ namespace DevHabit.APi.DTOs.Habits
                     Current = 0
                 }
                 : null
-
-
             };
             return habit;
+        }
+
+        public static void UpdateFromDto(this Habit h, UpdateHabitDto updateHabitDto)
+        {
+            h.Name = updateHabitDto.Name;
+            h.Description = updateHabitDto.Description;
+            h.Type = updateHabitDto.Type;
+            h.EndDate = updateHabitDto.EndDate;
+
+            h.Frequency = new Frequency
+            {
+                Type = updateHabitDto.Frequency.Type,
+                TimesPerPeriod = updateHabitDto.Frequency.TimesPerPeriod
+            };
+            h.Target = new Target
+            {
+                Value = updateHabitDto.Target.Value,
+                Unit = updateHabitDto.Target.Unit
+            };
+            if (updateHabitDto.Milestone != null)
+            {
+                h.Milestone ??= new Milestone();
+                h.Milestone.Target = updateHabitDto.Milestone.Target;
+            }
+            h.UpdatedAtUtc = DateTime.UtcNow;
         }
     }
 
