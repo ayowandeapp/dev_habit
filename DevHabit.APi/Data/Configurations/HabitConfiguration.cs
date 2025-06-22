@@ -22,6 +22,11 @@ namespace DevHabit.APi.Data.Configurations
                 targetBuilder.Property(t => t.Unit).HasMaxLength(100);
             });
             builder.OwnsOne(h => h.Milestone);
+
+            // configure the skip navigation property to get the tags directly
+            builder.HasMany(h => h.Tags)
+                .WithMany()
+                .UsingEntity<HabitTag>();
         }
     }
 }

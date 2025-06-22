@@ -21,6 +21,13 @@ namespace DevHabit.APi.Models
         public DateTime? UpdatedAtUtc { get; set; } = DateTime.UtcNow;
         public DateTime? LastCompletedAtUtc { get; set; }
 
+        //collections
+        public List<HabitTag> HashTags { get; set; } = [];
+        // ef core allows you to skip the join entity table entirely in the many-many
+        // and define a navigataton prop. directly to the other entity in
+        // the many to many relationship. Hence, 
+        public ICollection<Tag> Tags { get; set; } = [];
+
     }
 
     public sealed class Milestone

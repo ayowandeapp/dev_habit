@@ -33,7 +33,8 @@ namespace DevHabit.APi.Controllers
         public async Task<ActionResult<HabitDto>> GetHabit(string id)
         {
             var habit = await context.Habits
-                .Select(HabitQueries.ProjectToDto())
+                .Include(h => h.Tags)
+                .Select(HabitQueries.ProjectToHabitWithTagsDto())
                 .FirstOrDefaultAsync(h => h.Id == id);
 
             if (habit is null)

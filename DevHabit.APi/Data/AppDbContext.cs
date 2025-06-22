@@ -11,6 +11,8 @@ namespace DevHabit.APi.Data
     public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
         public DbSet<Habit> Habits { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<HabitTag> HabitTags { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //dedicated schema 

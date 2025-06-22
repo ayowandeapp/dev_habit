@@ -4,6 +4,7 @@ using DevHabit.APi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevHabit.APi.Migrations.Application
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250621164606_Added_Tags_table")]
+    partial class Added_Tags_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,31 +75,6 @@ namespace DevHabit.APi.Migrations.Application
                         .HasName("pk_habits");
 
                     b.ToTable("habits", (string)null);
-                });
-
-            modelBuilder.Entity("DevHabit.APi.Models.HabitTag", b =>
-                {
-                    b.Property<string>("HabitId")
-                        .HasMaxLength(191)
-                        .HasColumnType("varchar(191)")
-                        .HasColumnName("habit_id");
-
-                    b.Property<string>("TagId")
-                        .HasMaxLength(191)
-                        .HasColumnType("varchar(191)")
-                        .HasColumnName("tag_id");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at_utc");
-
-                    b.HasKey("HabitId", "TagId")
-                        .HasName("pk_habit_tags");
-
-                    b.HasIndex("TagId")
-                        .HasDatabaseName("ix_habit_tags_tag_id");
-
-                    b.ToTable("habit_tags", (string)null);
                 });
 
             modelBuilder.Entity("DevHabit.APi.Models.Tag", b =>
@@ -215,28 +193,6 @@ namespace DevHabit.APi.Migrations.Application
 
                     b.Navigation("Target")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DevHabit.APi.Models.HabitTag", b =>
-                {
-                    b.HasOne("DevHabit.APi.Models.Habit", null)
-                        .WithMany("HashTags")
-                        .HasForeignKey("HabitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_habit_tags_habits_habit_id");
-
-                    b.HasOne("DevHabit.APi.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_habit_tags_tags_tag_id");
-                });
-
-            modelBuilder.Entity("DevHabit.APi.Models.Habit", b =>
-                {
-                    b.Navigation("HashTags");
                 });
 #pragma warning restore 612, 618
         }

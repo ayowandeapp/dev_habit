@@ -10,7 +10,11 @@ namespace DevHabit.APi.DTOs.Habits
     {
         public List<HabitDto>? Data { get; init; }
     }
-    public sealed record HabitDto
+    public sealed record HabitWithTagsDto : HabitDto
+    {
+        public required string[] Tags { get; set; }
+    }
+    public record HabitDto
     {
         public required string Id { get; init; }
         public required string Name { get; init; }
