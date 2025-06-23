@@ -133,3 +133,5 @@ C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\zh-Ha
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll

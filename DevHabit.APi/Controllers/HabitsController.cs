@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Habits;
 using DevHabit.APi.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,8 +47,18 @@ namespace DevHabit.APi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<HabitDto>> CreateHabit(CreateHabitDto createHabitDto)
+        public async Task<ActionResult<HabitDto>> CreateHabit(
+            CreateHabitDto createHabitDto,
+            IValidator<CreateHabitDto> validator
+        )
         {
+            var validationResult = await validator.ValidateAsync(createHabitDto);
+            if (!validationResult.IsValid)
+            {
+                return ValidationProblem(
+                    new ValidationProblemDetails(validationResult.ToDictionary())
+                );
+            }
             Habit h = createHabitDto.ToEntity();
             context.Habits.Add(h);
             await context.SaveChangesAsync();

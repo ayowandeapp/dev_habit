@@ -1,5 +1,6 @@
 using DevHabit.APi.Data;
 using DevHabit.APi.Extensions;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ builder.Services.AddControllers(options =>
     options.ReturnHttpNotAcceptable = false;///
 })
 .AddXmlSerializerFormatters();
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

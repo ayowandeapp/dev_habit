@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevHabit.APi.Models;
+using FluentValidation;
 
 namespace DevHabit.APi.DTOs.Habits
 {
@@ -15,6 +16,6 @@ namespace DevHabit.APi.DTOs.Habits
         public required TargetDto Target { get; init; }
         public DateOnly? EndDate { get; init; }
         public MilestoneDto? Milestone { get; init; }
-        
+
     }
 }
