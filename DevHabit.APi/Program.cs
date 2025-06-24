@@ -1,6 +1,8 @@
 using DevHabit.APi.Data;
 using DevHabit.APi.Extensions;
+using DevHabit.APi.Middleware;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +17,14 @@ builder.Services.AddControllers(options =>
 })
 .AddXmlSerializerFormatters();
 
+// builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+
 builder.Services.AddOpenApi();
 
 //Dependencies
@@ -47,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // app.UseAuthorization();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

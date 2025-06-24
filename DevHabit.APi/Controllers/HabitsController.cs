@@ -52,13 +52,15 @@ namespace DevHabit.APi.Controllers
             IValidator<CreateHabitDto> validator
         )
         {
-            var validationResult = await validator.ValidateAsync(createHabitDto);
-            if (!validationResult.IsValid)
-            {
-                return ValidationProblem(
-                    new ValidationProblemDetails(validationResult.ToDictionary())
-                );
-            }
+            // var validationResult = await validator.ValidateAsync(createHabitDto);
+            // if (!validationResult.IsValid)
+            // {
+            //     return ValidationProblem(
+            //         new ValidationProblemDetails(validationResult.ToDictionary())
+            //     );
+            // }
+             await validator.ValidateAndThrowAsync(createHabitDto);
+            
             Habit h = createHabitDto.ToEntity();
             context.Habits.Add(h);
             await context.SaveChangesAsync();

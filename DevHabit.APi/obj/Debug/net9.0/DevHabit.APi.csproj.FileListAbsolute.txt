@@ -135,3 +135,5 @@ C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Swash
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.dll
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\obj\Debug\net9.0\DevHabit.APi.sourcelink.json
+C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
