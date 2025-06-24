@@ -18,10 +18,22 @@ namespace DevHabit.APi.Controllers
     public class HabitsController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<HabitCollectionDto>> GetHabits()
+        public async Task<ActionResult<HabitCollectionDto>> GetHabits(
+            [FromQuery()] HabitQueryParameters query
+        )
         {
-            List<HabitDto> habits = await context.Habits.
-                Select(HabitQueries.ProjectToDto()).ToListAsync();
+            query.Search = query.Search?.Trim().ToLower();
+            
+            List<HabitDto> habits = await context
+                .Habits
+                .Where(h => query.Search == null ||
+                    h.Name.ToLower().Contains(query.Search) ||
+                    (h.Description != null && h.Description.ToLower().Contains(query.Search))
+                )
+                .Where(h => query.Type == null || h.Type == query.Type)
+                .Where(h => query.Status == null || h.Status == query.Status)
+                .Select(HabitQueries.ProjectToDto())
+                .ToListAsync();
 
             var data = new HabitCollectionDto
             {
