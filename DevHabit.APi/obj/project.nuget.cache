@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rYeEBTz8O7U=",
+  "dgSpecHash": "evtr37ej9HM=",
   "success": true,
   "projectFilePath": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
   "expectedPackageFiles": [
@@ -54,6 +54,7 @@
     "C:\\Users\\ovayo\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\system.linq.dynamic.core\\1.6.6\\system.linq.dynamic.core.1.6.6.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\system.reflection.metadata\\7.0.0\\system.reflection.metadata.7.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\system.text.json\\9.0.6\\system.text.json.9.0.6.nupkg.sha512",

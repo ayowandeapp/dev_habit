@@ -1,6 +1,9 @@
 using DevHabit.APi.Data;
+using DevHabit.APi.DTOs.Habits;
 using DevHabit.APi.Extensions;
 using DevHabit.APi.Middleware;
+using DevHabit.APi.Models;
+using DevHabit.APi.Services.Sorting;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +27,10 @@ builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+//register sorting definitions
+builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>( _ => 
+    HabitMappers.sortMapping);
+builder.Services.AddTransient<SortMappingProvider>();
 
 builder.Services.AddOpenApi();
 
