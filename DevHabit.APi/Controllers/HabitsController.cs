@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DevHabit.APi.Data;
+using DevHabit.APi.DTOs.Common;
 using DevHabit.APi.DTOs.Habits;
 using DevHabit.APi.Models;
 using DevHabit.APi.Services.Sorting;
@@ -19,7 +20,7 @@ namespace DevHabit.APi.Controllers
     public class HabitsController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<HabitCollectionDto>> GetHabits(
+        public async Task<ActionResult<PaginationResult<HabitDto>>> GetHabits(
             [FromQuery] HabitQueryParameters query,
             SortMappingProvider sortMappingProvider
         )
@@ -35,7 +36,7 @@ namespace DevHabit.APi.Controllers
 
             SortMapping[] sortMapping = sortMappingProvider.GetMappings<HabitDto, Habit>();
             
-            List<HabitDto> habits = await context
+            IQueryable<HabitDto> habitsQuery = context
                 .Habits
                 .Where(h => query.Search == null ||
                     h.Name.ToLower().Contains(query.Search) ||
@@ -44,13 +45,13 @@ namespace DevHabit.APi.Controllers
                 .Where(h => query.Type == null || h.Type == query.Type)
                 .Where(h => query.Status == null || h.Status == query.Status)
                 .ApplySort(query.Sort, sortMapping)
-                .Select(HabitQueries.ProjectToDto())
-                .ToListAsync();
+                .Select(HabitQueries.ProjectToDto());
 
-            var data = new HabitCollectionDto
-            {
-                Data = habits
-            };
+            var data = await PaginationResult<HabitDto>.CreateAsync(
+                habitsQuery,
+                query.Page,
+                query.PageSize
+            );
             return Ok(data);
         }
 

@@ -6,10 +6,6 @@ using DevHabit.APi.Models;
 
 namespace DevHabit.APi.DTOs.Habits
 {
-    public sealed record HabitCollectionDto
-    {
-        public List<HabitDto>? Data { get; init; }
-    }
     public sealed record HabitWithTagsDto : HabitDto
     {
         public required string[] Tags { get; set; }

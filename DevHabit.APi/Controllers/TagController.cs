@@ -26,7 +26,7 @@ namespace DevHabit.APi.Controllers
 
             var dataDto = new TagsCollectionDto
             {
-                Data = tags
+                Items = tags
             };
             return Ok(dataDto);
         }

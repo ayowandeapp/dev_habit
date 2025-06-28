@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj": {}
+    "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj": {
+    "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
+        "projectUniqueName": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
         "projectName": "DevHabit.APi",
-        "projectPath": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
+        "projectPath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
         "packagesPath": "C:\\Users\\ovayo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\obj\\",
+        "outputPath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ovayo\\AppData\\Roaming\\NuGet\\NuGet.Config"

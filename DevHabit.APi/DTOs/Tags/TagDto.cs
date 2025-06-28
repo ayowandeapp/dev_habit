@@ -5,11 +5,6 @@ using System.Threading.Tasks;
 
 namespace DevHabit.APi.DTOs.Tags
 {
-    
-    public class TagsCollectionDto
-    {
-        public List<TagDto> Data { get; set; }
-    }
     public sealed record TagDto
     {
         public string Id { get; init; }

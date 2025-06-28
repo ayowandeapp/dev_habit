@@ -3330,11 +3330,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
+      "projectUniqueName": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
       "projectName": "DevHabit.APi",
-      "projectPath": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
+      "projectPath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
       "packagesPath": "C:\\Users\\ovayo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ovayo\\Desktop\\.net\\project\\DevHabit\\DevHabit.APi\\obj\\",
+      "outputPath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ovayo\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3434,5 +3434,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }
