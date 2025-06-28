@@ -3,6 +3,7 @@ using DevHabit.APi.DTOs.Habits;
 using DevHabit.APi.Extensions;
 using DevHabit.APi.Middleware;
 using DevHabit.APi.Models;
+using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -31,6 +32,8 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>( _ => 
     HabitMappers.sortMapping);
 builder.Services.AddTransient<SortMappingProvider>();
+
+builder.Services.AddTransient(typeof(IDataShaperService<>), typeof(DataShaperService<>));
 
 builder.Services.AddOpenApi();
 
