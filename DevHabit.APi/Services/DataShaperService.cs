@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using DevHabit.APi.DTOs.Common;
 
 namespace DevHabit.APi.Services
 {
@@ -15,11 +16,22 @@ namespace DevHabit.APi.Services
         {
             Properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
-        public List<ExpandoObject> ShapeData(IEnumerable<T> entities, string fieldsString)
+        public List<ExpandoObject> ShapeData(
+            IEnumerable<T> entities,
+            string fieldsString,
+            Func<T, List<LinkDto>>? linksFactory = null
+            )
         {
             var requiredProperties = GetRequiredProperties(fieldsString);
-            return FetchData(entities, requiredProperties);
+            return FetchData(entities, requiredProperties, linksFactory);
         }
+        
+        public ExpandoObject ShapeData(T entity, string fieldsString)
+        {
+            var requiredProperties = GetRequiredProperties(fieldsString);
+            return DataShaperService<T>.FetchDataForEntity(entity, requiredProperties);
+        }
+
         private IEnumerable<PropertyInfo> GetRequiredProperties(string fieldsString)
         {
             var requiredProperties = new List<PropertyInfo>();
@@ -48,13 +60,21 @@ namespace DevHabit.APi.Services
             return requiredProperties;
         }
 
-        private List<ExpandoObject> FetchData(IEnumerable<T> entities, IEnumerable<PropertyInfo> requiredProperties)
+        private List<ExpandoObject> FetchData(
+            IEnumerable<T> entities,
+            IEnumerable<PropertyInfo> requiredProperties,
+            Func<T, List<LinkDto>>? linksFactory
+            )
         {
             List<ExpandoObject> shapedObjects = [];
             foreach (var entity in entities)
             {
                 ExpandoObject shapedObject = DataShaperService<T>.FetchDataForEntity(entity, requiredProperties);
 
+                if (linksFactory is not null)
+                {
+                    shapedObject.TryAdd("links", linksFactory(entity)); 
+                }
                 shapedObjects.Add(shapedObject);
             }
             return shapedObjects;
@@ -72,12 +92,6 @@ namespace DevHabit.APi.Services
             return shapedObject;
         }
 
-
-        public ExpandoObject ShapeData(T entity, string fieldsString)
-        {
-            var requiredProperties = GetRequiredProperties(fieldsString);
-            return DataShaperService<T>.FetchDataForEntity(entity, requiredProperties);
-        }
 
         public bool ValidateFields(string? fieldsString)
         {

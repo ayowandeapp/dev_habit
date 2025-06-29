@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DevHabit.APi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e01f7d178d19a4bac0fa351dd45b4d5a4ed64d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9e136c48bfa0301128b960872cdb59825989328")]
 [assembly: System.Reflection.AssemblyProductAttribute("DevHabit.APi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DevHabit.APi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

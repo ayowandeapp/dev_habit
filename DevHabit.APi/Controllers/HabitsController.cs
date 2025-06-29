@@ -19,7 +19,9 @@ namespace DevHabit.APi.Controllers
 {
     [ApiController]
     [Route("habits")]
-    public class HabitsController(AppDbContext context) : ControllerBase
+    public class HabitsController(
+        AppDbContext context,
+        LinkService linkService) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetHabits(
@@ -65,14 +67,18 @@ namespace DevHabit.APi.Controllers
                 .Take(query.PageSize)
                 .ToListAsync();
 
-            List<ExpandoObject> newItems = dataShaperService.ShapeData(items, query.Fields);
+            List<ExpandoObject> newItems = dataShaperService.ShapeData(
+                items,
+                query.Fields,
+                h => CreateLinkForHabit(h.Id, query.Fields));
 
             var data =  new PaginationResult<ExpandoObject>
             {
                 Items = newItems,
                 Page = query.Page,
                 PageSize = query.PageSize,
-                TotalCount = totalCount
+                TotalCount = totalCount,
+                Links = CreateLinkForHabits(query)
             };
 
             // var data = await PaginationResult<HabitDto>.CreateAsync(
@@ -88,7 +94,7 @@ namespace DevHabit.APi.Controllers
             string id,
             string? fields,
             IDataShaperService<HabitDto> dataShaperService
-            )
+        )
         {
             if (!dataShaperService.ValidateFields(fields))
             {
@@ -109,6 +115,9 @@ namespace DevHabit.APi.Controllers
             
             ExpandoObject newItems = dataShaperService.ShapeData(habit, fields);
 
+            List<LinkDto> links = CreateLinkForHabit(id, fields);
+
+            newItems.TryAdd("links", links);
 
             return Ok(newItems);
         }
@@ -133,6 +142,7 @@ namespace DevHabit.APi.Controllers
             await context.SaveChangesAsync();
 
             var habitDto = h.ToDto();
+            habitDto.Links = CreateLinkForHabit(h.Id, null);
 
             return CreatedAtAction(nameof(GetHabit), new { id = h.Id }, habitDto);
         }
@@ -166,7 +176,44 @@ namespace DevHabit.APi.Controllers
 
             return NoContent();
         }
+        private List<LinkDto> CreateLinkForHabits(HabitQueryParameters habitQueryParameters)
+        {
+            List<LinkDto> links =
+            [
+                linkService.Create(nameof(GetHabits), "self", HttpMethods.Get, new {
+                    page = habitQueryParameters.Page,
+                    pageSize = habitQueryParameters.PageSize,
+                    fields = habitQueryParameters.Fields,
+                    q = habitQueryParameters.Search,
+                    sort = habitQueryParameters.Sort,
+                    type = habitQueryParameters.Type,
+                    status = habitQueryParameters.Status
+                }),
+                linkService.Create(nameof(CreateHabit), "create", HttpMethods.Post)
 
+            ];
+
+            return links;
+        }
+        private List<LinkDto> CreateLinkForHabit(string id, string? fields)
+        {
+            List<LinkDto> links =
+            [
+                linkService.Create(nameof(GetHabit), "self", HttpMethods.Get, new { id, fields }),
+                linkService.Create(nameof(UpdateHabit), "update", HttpMethods.Put, new { id }),
+                linkService.Create(nameof(DeleteHabit), "delete", HttpMethods.Delete, new { id }),
+                linkService.Create(
+                    nameof(HabitTagsController.UpsertHabitTags),
+                    "upsert-tags",
+                    HttpMethods.Put,
+                    new { habitId = id },
+                    "HabitTags"
+                    )
+
+            ];
+
+            return links;
+        }
 
         
     }

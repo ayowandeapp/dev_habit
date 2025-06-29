@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevHabit.APi.DTOs.Common;
 using DevHabit.APi.Models;
 
 namespace DevHabit.APi.DTOs.Habits
@@ -10,7 +11,7 @@ namespace DevHabit.APi.DTOs.Habits
     {
         public required string[] Tags { get; set; }
     }
-    public record HabitDto
+    public record HabitDto: ILinksResponse
     {
         public required string Id { get; init; }
         public required string Name { get; init; }
@@ -25,6 +26,8 @@ namespace DevHabit.APi.DTOs.Habits
         public required DateTime CreatedAtUtc { get; init; }
         public required DateTime? UpdatedAtUtc { get; init; }
         public required DateTime? LastCompletedAtUtc { get; init; }
+
+        public List<LinkDto> Links { get; set; }
     }
 
     public sealed record MilestoneDto
