@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Asp.Versioning;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Common;
 using DevHabit.APi.DTOs.Habits;
@@ -37,7 +38,32 @@ namespace DevHabit.APi
 
                 jsonFormatter.SupportedMediaTypes.Add(
                     CustomMediaTypeNames.Application.HateoasJson);
+                jsonFormatter.SupportedMediaTypes.Add(
+                    CustomMediaTypeNames.Application.HateoasJsonV1);
+                jsonFormatter.SupportedMediaTypes.Add(
+                    CustomMediaTypeNames.Application.HateoasJsonV2);
+                jsonFormatter.SupportedMediaTypes.Add(
+                    CustomMediaTypeNames.Application.JsonV1);
+                jsonFormatter.SupportedMediaTypes.Add(
+                    CustomMediaTypeNames.Application.JsonV2);
             });
+
+            builder.Services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1.0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.ApiVersionSelector = new DefaultApiVersionSelector(options);
+
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new MediaTypeApiVersionReader(),
+                    new MediaTypeApiVersionReaderBuilder()
+                        .Template("application/vnd.dev-habit.hateoas.{version}+json")
+                        .Build()
+                );
+
+            })
+            .AddMvc();
 
             builder.Services.AddOpenApi();
 

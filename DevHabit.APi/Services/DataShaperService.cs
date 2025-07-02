@@ -60,7 +60,7 @@ namespace DevHabit.APi.Services
             return requiredProperties;
         }
 
-        private List<ExpandoObject> FetchData(
+        private static List<ExpandoObject> FetchData(
             IEnumerable<T> entities,
             IEnumerable<PropertyInfo> requiredProperties,
             Func<T, List<LinkDto>>? linksFactory
@@ -93,13 +93,13 @@ namespace DevHabit.APi.Services
         }
 
 
-        public bool ValidateFields(string? fieldsString)
+        public bool ValidateFields(string? fields)
         {
-            if (string.IsNullOrWhiteSpace(fieldsString)) return true;
+            if (string.IsNullOrWhiteSpace(fields)) return true;
 
-            var fields = fieldsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            var fieldsArr = fields.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var field in fields)
+            foreach (var field in fieldsArr)
             {
                 var property = Properties.FirstOrDefault(pi =>
                     pi.Name.Equals(field.Trim(), StringComparison.InvariantCultureIgnoreCase));

@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Asp.Versioning;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Common;
 using DevHabit.APi.DTOs.Habits;
@@ -19,6 +20,7 @@ namespace DevHabit.APi.Controllers
 {
     [ApiController]
     [Route("habits")]
+    [ApiVersion(1.0)]
     public class HabitsController(
         AppDbContext context,
         LinkService linkService) : ControllerBase
@@ -47,7 +49,7 @@ namespace DevHabit.APi.Controllers
             query.Search = query.Search?.Trim().ToLower();
 
             SortMapping[] sortMapping = sortMappingProvider.GetMappings<HabitDto, Habit>();
-            
+
             IQueryable<HabitDto> habitsQuery = context
                 .Habits
                 .Where(h => query.Search == null ||
@@ -60,7 +62,7 @@ namespace DevHabit.APi.Controllers
                 .Select(HabitQueries.ProjectToDto());
 
             bool includeLinks = query.Accept == CustomMediaTypeNames.Application.HateoasJson;
-            
+
             int totalCount = await habitsQuery.CountAsync();
 
             List<HabitDto> items = await habitsQuery
@@ -71,12 +73,10 @@ namespace DevHabit.APi.Controllers
             List<ExpandoObject> newItems = dataShaperService.ShapeData(
                 items,
                 query.Fields,
-                includeLinks ? h => CreateLinkForHabit(h.Id, query.Fields): null
-                ) ;
+                includeLinks ? h => CreateLinkForHabit(h.Id, query.Fields) : null
+                );
 
-            
-
-            var data =  new PaginationResult<ExpandoObject>
+            var data = new PaginationResult<ExpandoObject>
             {
                 Items = newItems,
                 Page = query.Page,
@@ -90,19 +90,20 @@ namespace DevHabit.APi.Controllers
             }
 
             // var data = await PaginationResult<HabitDto>.CreateAsync(
-                //     habitsQuery,
-                //     query.Page,
-                //     query.PageSize
-                // );
-                return Ok(data);
+            //     habitsQuery,
+            //     query.Page,
+            //     query.PageSize
+            // );
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
+        [MapToApiVersion(1.0)]
         public async Task<IActionResult> GetHabit(
             string id,
             string? fields,
            [FromHeader(Name = "Accept")] string accept,
-            IDataShaperService<HabitDto> dataShaperService
+            IDataShaperService<HabitWithTagsDto> dataShaperService
         )
         {
             if (!dataShaperService.ValidateFields(fields))
@@ -112,7 +113,7 @@ namespace DevHabit.APi.Controllers
                     detail: $"The provided data shaping fields are not valid {fields}"
                 );
             }
-            var habit = await context.Habits
+            HabitWithTagsDto? habit = await context.Habits
                 .Include(h => h.Tags)
                 .Select(HabitQueries.ProjectToHabitWithTagsDto())
                 .FirstOrDefaultAsync(h => h.Id == id);
@@ -121,7 +122,7 @@ namespace DevHabit.APi.Controllers
             {
                 return NotFound();
             }
-            
+
             ExpandoObject newItems = dataShaperService.ShapeData(habit, fields);
 
             bool includeLinks = accept == CustomMediaTypeNames.Application.HateoasJson;
@@ -131,7 +132,48 @@ namespace DevHabit.APi.Controllers
                 List<LinkDto> links = CreateLinkForHabit(id, fields);
 
                 newItems.TryAdd("links", links);
-                
+
+            }
+
+            return Ok(newItems);
+        }
+
+        [HttpGet("{id}")]
+        [ApiVersion(2.0)]
+        public async Task<IActionResult> GetHabitv2(
+            string id,
+            string? fields,
+           [FromHeader(Name = "Accept")] string accept,
+            IDataShaperService<HabitWithTagsDtoV2> dataShaperService
+        )
+        {
+            if (!dataShaperService.ValidateFields(fields))
+            {
+                return Problem(
+                    statusCode: StatusCodes.Status400BadRequest,
+                    detail: $"The provided data shaping fields are not valid {fields}"
+                );
+            }
+            HabitWithTagsDtoV2? habit = await context.Habits
+                .Include(h => h.Tags)
+                .Select(HabitQueries.ProjectToHabitWithTagsDtoV2())
+                .FirstOrDefaultAsync(h => h.Id == id);
+
+            if (habit is null)
+            {
+                return NotFound();
+            }
+
+            ExpandoObject newItems = dataShaperService.ShapeData(habit, fields);
+
+            bool includeLinks = accept == CustomMediaTypeNames.Application.HateoasJson;
+
+            if (includeLinks)
+            {
+                List<LinkDto> links = CreateLinkForHabit(id, fields);
+
+                newItems.TryAdd("links", links);
+
             }
 
             return Ok(newItems);
@@ -150,8 +192,8 @@ namespace DevHabit.APi.Controllers
             //         new ValidationProblemDetails(validationResult.ToDictionary())
             //     );
             // }
-             await validator.ValidateAndThrowAsync(createHabitDto);
-            
+            await validator.ValidateAndThrowAsync(createHabitDto);
+
             Habit h = createHabitDto.ToEntity();
             context.Habits.Add(h);
             await context.SaveChangesAsync();
@@ -230,6 +272,6 @@ namespace DevHabit.APi.Controllers
             return links;
         }
 
-        
+
     }
 }

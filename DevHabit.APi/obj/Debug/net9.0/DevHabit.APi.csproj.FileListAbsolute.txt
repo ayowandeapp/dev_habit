@@ -138,3 +138,6 @@ C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Fluen
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\obj\Debug\net9.0\DevHabit.APi.sourcelink.json
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
 C:\Users\ovayo\Desktop\.net\project\DevHabit\DevHabit.APi\bin\Debug\net9.0\System.Linq.Dynamic.Core.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Asp.Versioning.Abstractions.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Asp.Versioning.Http.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Asp.Versioning.Mvc.dll
