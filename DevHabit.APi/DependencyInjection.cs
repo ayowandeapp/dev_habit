@@ -10,7 +10,10 @@ using DevHabit.APi.Models;
 using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
 using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 namespace DevHabit.APi
 {
@@ -20,9 +23,21 @@ namespace DevHabit.APi
         {
             builder.Services.AddControllers(options =>
                 {
-                    options.ReturnHttpNotAcceptable = false;///
+                    options.ReturnHttpNotAcceptable = true;
+      
                 })
                 .AddXmlSerializerFormatters();
+
+            // Add media type to supported types
+            builder.Services.Configure<MvcOptions>(options =>
+            {
+                var jsonFormatter = options.OutputFormatters
+                    .OfType<SystemTextJsonOutputFormatter>()
+                    .First();
+
+                jsonFormatter.SupportedMediaTypes.Add(
+                    CustomMediaTypeNames.Application.HateoasJson);
+            });
 
             builder.Services.AddOpenApi();
 

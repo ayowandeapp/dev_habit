@@ -27,7 +27,7 @@ namespace DevHabit.APi.DTOs.Habits
         public required DateTime? UpdatedAtUtc { get; init; }
         public required DateTime? LastCompletedAtUtc { get; init; }
 
-        public List<LinkDto> Links { get; set; }
+        public List<LinkDto> Links { get; set; } //comment this
     }
 
     public sealed record MilestoneDto

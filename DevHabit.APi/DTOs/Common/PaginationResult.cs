@@ -13,7 +13,7 @@ namespace DevHabit.APi.DTOs.Common
         public bool HasPreviousPage => Page > 1;
         public bool HasNextPage => Page < TotalPages;
 
-        public List<LinkDto> Links { get; set; }
+        public List<LinkDto>? Links { get; set; }
 
         public static async Task<PaginationResult<T>> CreateAsync(
             IQueryable<T> query,
