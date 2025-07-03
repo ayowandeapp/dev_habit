@@ -11,7 +11,8 @@ builder
     .AddController()
     .AddErrorHandling()
     .AddDatabase()
-    .AddAplicationServices();
+    .AddAplicationServices()
+    .AddAuthenticationServices();
 
 var app = builder.Build();
 

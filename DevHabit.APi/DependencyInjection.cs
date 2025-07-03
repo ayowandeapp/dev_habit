@@ -11,6 +11,7 @@ using DevHabit.APi.Models;
 using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace DevHabit.APi
             builder.Services.AddControllers(options =>
                 {
                     options.ReturnHttpNotAcceptable = true;
-      
+
                 })
                 .AddXmlSerializerFormatters();
 
@@ -92,6 +93,15 @@ namespace DevHabit.APi
                     )
             );
 
+            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+                options
+                    .UseSnakeCaseNamingConvention()
+                    .UseMySql(
+                        builder.Configuration.GetConnectionString("DefaultConnection"),
+                        new MariaDbServerVersion(new Version(10, 4, 28))
+                    )
+            );
+
             return builder;
         }
 
@@ -111,7 +121,15 @@ namespace DevHabit.APi
             builder.Services.AddTransient<LinkService>();
 
             return builder;
+        }
 
+        public static WebApplicationBuilder AddAuthenticationServices(this WebApplicationBuilder builder)
+        {
+            builder.Services
+                .AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>();
+
+            return builder;
         }
     }
 }
