@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using DevHabit.APi.Data;
@@ -10,11 +11,14 @@ using DevHabit.APi.Middleware;
 using DevHabit.APi.Models;
 using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
+using DevHabit.APi.Settings;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 
 namespace DevHabit.APi
@@ -114,6 +118,7 @@ namespace DevHabit.APi
             builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>(_ =>
                 HabitMappers.sortMapping);
             builder.Services.AddTransient<SortMappingProvider>();
+            builder.Services.AddTransient<TokenProvider>();
 
             builder.Services.AddTransient(typeof(IDataShaperService<>), typeof(DataShaperService<>));
 
@@ -128,6 +133,27 @@ namespace DevHabit.APi
             builder.Services
                 .AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>();
+            //inject the JwtAuthOptions
+            builder.Services.Configure<JwtAuthOptions>(builder.Configuration.GetSection("Jwt"));
+
+            JwtAuthOptions jwtAuthOptions = builder.Configuration.GetSection("Jwt").Get<JwtAuthOptions>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtAuthOptions.Issuer,
+                        ValidAudience = jwtAuthOptions.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAuthOptions.Key))
+                    };
+                });
+
+            builder.Services.AddAuthorization();
 
             return builder;
         }

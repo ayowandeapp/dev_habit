@@ -146,3 +146,11 @@ C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\refin
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\DevHabit.APi.pdb
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\DevHabit.APi.genruntimeconfig.cache
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\ref\DevHabit.APi.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

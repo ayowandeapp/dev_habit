@@ -7,6 +7,7 @@ using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Auth;
 using DevHabit.APi.DTOs.Users;
 using DevHabit.APi.Models;
+using DevHabit.APi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,8 @@ namespace DevHabit.APi.Controllers
     public sealed class AuthenticationController(
         UserManager<IdentityUser> userManager,
         AppIdentityDbContext identityDbContext,
-        AppDbContext appDbContext
+        AppDbContext appDbContext,
+        TokenProvider tokenProvider
     ) : ControllerBase
     {
         [HttpPost("register")]
@@ -64,13 +66,26 @@ namespace DevHabit.APi.Controllers
 
             await transaction.CommitAsync();
 
-            return Ok(user);
+            var tokenRequest = new TokenRequest(identityUser.Id, identityUser.Email);
+            var tokens = tokenProvider.Create(tokenRequest);
+
+            return Ok(tokens);
         }
 
-        [HttpGet]
-        public string Gets()
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginUserDto loginUserDto)
         {
-            return "ok";
+            var user = await userManager.FindByEmailAsync(loginUserDto.Email);
+
+            if (user is null || !await userManager.CheckPasswordAsync(user, loginUserDto.Password))
+            {
+                return Unauthorized();
+            }
+
+            var tokenRequest = new TokenRequest(user.Id, user.Email!);
+            var tokens = tokenProvider.Create(tokenRequest);
+
+            return Ok(tokens);
         }
     }
 }
