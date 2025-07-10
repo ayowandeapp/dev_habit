@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using DevHabit.APi.Settings;
@@ -26,7 +27,8 @@ namespace DevHabit.APi.Services
 
         private string GenerateRefreshToken()
         {
-            return string.Empty;
+            byte[] randomBytes = RandomNumberGenerator.GetBytes(32);
+            return Convert.ToBase64String(randomBytes);
         }
 
         private string GenerateAccessToken(TokenRequest tokenRequest)
