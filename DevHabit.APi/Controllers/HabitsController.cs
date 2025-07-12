@@ -23,7 +23,8 @@ namespace DevHabit.APi.Controllers
     [ApiVersion(1.0)]
     public class HabitsController(
         AppDbContext context,
-        LinkService linkService) : ControllerBase
+        LinkService linkService,
+        UserContext userContext) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetHabits(
@@ -32,6 +33,12 @@ namespace DevHabit.APi.Controllers
             IDataShaperService<HabitDto> dataShaperService
         )
         {
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+            
             if (!sortMappingProvider.ValidateMappings<HabitDto, Habit>(query.Sort))
             {
                 return Problem(
@@ -52,6 +59,7 @@ namespace DevHabit.APi.Controllers
 
             IQueryable<HabitDto> habitsQuery = context
                 .Habits
+                .Where(h => h.UserId == userId)
                 .Where(h => query.Search == null ||
                     h.Name.ToLower().Contains(query.Search) ||
                     (h.Description != null && h.Description.ToLower().Contains(query.Search))
@@ -106,6 +114,13 @@ namespace DevHabit.APi.Controllers
             IDataShaperService<HabitWithTagsDto> dataShaperService
         )
         {
+            
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+            
             if (!dataShaperService.ValidateFields(fields))
             {
                 return Problem(
@@ -114,6 +129,7 @@ namespace DevHabit.APi.Controllers
                 );
             }
             HabitWithTagsDto? habit = await context.Habits
+            .Where(h => h.UserId == userId)
                 .Include(h => h.Tags)
                 .Select(HabitQueries.ProjectToHabitWithTagsDto())
                 .FirstOrDefaultAsync(h => h.Id == id);
@@ -147,6 +163,13 @@ namespace DevHabit.APi.Controllers
             IDataShaperService<HabitWithTagsDtoV2> dataShaperService
         )
         {
+            
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
             if (!dataShaperService.ValidateFields(fields))
             {
                 return Problem(
@@ -155,6 +178,7 @@ namespace DevHabit.APi.Controllers
                 );
             }
             HabitWithTagsDtoV2? habit = await context.Habits
+                .Where(h => h.UserId == userId)
                 .Include(h => h.Tags)
                 .Select(HabitQueries.ProjectToHabitWithTagsDtoV2())
                 .FirstOrDefaultAsync(h => h.Id == id);
@@ -185,6 +209,12 @@ namespace DevHabit.APi.Controllers
             IValidator<CreateHabitDto> validator
         )
         {
+            
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
             // var validationResult = await validator.ValidateAsync(createHabitDto);
             // if (!validationResult.IsValid)
             // {
@@ -194,7 +224,7 @@ namespace DevHabit.APi.Controllers
             // }
             await validator.ValidateAndThrowAsync(createHabitDto);
 
-            Habit h = createHabitDto.ToEntity();
+            Habit h = createHabitDto.ToEntity(userId);
             context.Habits.Add(h);
             await context.SaveChangesAsync();
 
@@ -207,7 +237,14 @@ namespace DevHabit.APi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
         {
-            Habit? habit = await context.Habits.FirstOrDefaultAsync(h => h.Id == id);
+            
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
+            Habit? habit = await context.Habits.FirstOrDefaultAsync(h => h.Id == id && h.UserId == userId);
             if (habit is null)
             {
                 return NotFound();
@@ -221,7 +258,14 @@ namespace DevHabit.APi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteHabit(string id)
         {
-            Habit? habit = await context.Habits.FirstOrDefaultAsync(h => h.Id == id);
+            
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
+            Habit? habit = await context.Habits.FirstOrDefaultAsync(h => h.Id == id && h.UserId == userId);
 
             if (habit is null)
             {

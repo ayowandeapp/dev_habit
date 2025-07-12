@@ -14,9 +14,14 @@ namespace DevHabit.APi.Data.Configurations
         {
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Id).HasMaxLength(500);
+            builder.Property(h => h.UserId).HasMaxLength(500);
             builder.Property(t => t.Name).IsRequired().HasMaxLength(50);
             builder.Property(t => t.Description).HasMaxLength(500);
-            builder.HasIndex(t => new { t.Name }).IsUnique();
+            builder.HasIndex(t => new { t.Name, t.UserId }).IsUnique();
+
+            builder.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(h => h.UserId);
         }
     }
 }

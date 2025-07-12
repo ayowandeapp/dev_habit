@@ -68,8 +68,17 @@ namespace DevHabit.APi.Migrations.Application
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at_utc");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("user_id");
+
                     b.HasKey("Id")
                         .HasName("pk_habits");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_habits_user_id");
 
                     b.ToTable("habits", (string)null);
                 });
@@ -125,12 +134,21 @@ namespace DevHabit.APi.Migrations.Application
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at_utc");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("user_id");
+
                     b.HasKey("Id")
                         .HasName("pk_tags");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_tags_user_id");
+
+                    b.HasIndex("Name", "UserId")
                         .IsUnique()
-                        .HasDatabaseName("ix_tags_name");
+                        .HasDatabaseName("ix_tags_name_user_id");
 
                     b.ToTable("tags", (string)null);
                 });
@@ -183,6 +201,13 @@ namespace DevHabit.APi.Migrations.Application
 
             modelBuilder.Entity("DevHabit.APi.Models.Habit", b =>
                 {
+                    b.HasOne("DevHabit.APi.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_habits_users_user_id");
+
                     b.OwnsOne("DevHabit.APi.Models.Frequency", "Frequency", b1 =>
                         {
                             b1.Property<string>("HabitId")
@@ -278,6 +303,16 @@ namespace DevHabit.APi.Migrations.Application
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_habit_tags_tags_tag_id");
+                });
+
+            modelBuilder.Entity("DevHabit.APi.Models.Tag", b =>
+                {
+                    b.HasOne("DevHabit.APi.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_tags_users_user_id");
                 });
 
             modelBuilder.Entity("DevHabit.APi.Models.Habit", b =>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevHabit.APi.Controllers;
@@ -17,6 +18,14 @@ public class WeatherForecastController : ControllerBase
     {
         _logger = logger;
     }
+    // Unprotected (should work)
+    [HttpGet("ping")]
+    public IActionResult Ping() => Ok("Pong");
+
+    // Protected (should return 401 if no token, 200 if valid)
+    [Authorize]
+    [HttpGet("secure-ping")]
+    public IActionResult SecurePing() => Ok("Secure Pong");
 
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()

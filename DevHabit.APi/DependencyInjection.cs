@@ -125,6 +125,9 @@ namespace DevHabit.APi
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddTransient<LinkService>();
 
+            builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<UserContext>();
+
             return builder;
         }
 
@@ -138,7 +141,11 @@ namespace DevHabit.APi
 
             JwtAuthOptions jwtAuthOptions = builder.Configuration.GetSection("Jwt").Get<JwtAuthOptions>();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -154,7 +161,7 @@ namespace DevHabit.APi
                 });
 
             builder.Services.AddAuthorization();
-
+            
             return builder;
         }
     }
