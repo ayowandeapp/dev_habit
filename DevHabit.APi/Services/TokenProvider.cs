@@ -14,7 +14,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace DevHabit.APi.Services
 {
-    public sealed record TokenRequest(string UserId, string Email);
+    public sealed record TokenRequest(string UserId, string Email, IEnumerable<string> Roles);
     public sealed record AccessTokenDto(string AccessToken, string RefreshToken);
     public class TokenProvider(IOptions<JwtAuthOptions> options)
     {
@@ -39,7 +39,8 @@ namespace DevHabit.APi.Services
             List<Claim> claims =
             [
                 new Claim(JwtRegisteredClaimNames.Sub, tokenRequest.UserId),
-                new Claim(JwtRegisteredClaimNames.Email, tokenRequest.Email)
+                new Claim(JwtRegisteredClaimNames.Email, tokenRequest.Email),
+                ..tokenRequest.Roles.Select(role => new Claim(ClaimTypes.Role, role))
             ];
 
             var tokenDescriptor = new SecurityTokenDescriptor

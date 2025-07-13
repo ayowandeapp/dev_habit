@@ -64,6 +64,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     //apply migrations
     await app.ApplyMigrationsAsync();
+    await app.SeedRolesDataAsync();
 
 }
 

@@ -7,11 +7,13 @@ using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Tags;
 using DevHabit.APi.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevHabit.APi.Controllers
 {
+    [Authorize(Roles = Roles.Member)]
     [ApiController]
     [Route("tags")]
     public class TagController(AppDbContext context) : ControllerBase

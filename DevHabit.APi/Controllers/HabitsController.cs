@@ -12,12 +12,14 @@ using DevHabit.APi.Models;
 using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevHabit.APi.Controllers
 {
+    [Authorize(Roles = Roles.Member)]
     [ApiController]
     [Route("habits")]
     [ApiVersion(1.0)]

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Users;
+using DevHabit.APi.Models;
 using DevHabit.APi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevHabit.APi.Controllers
 {
+    [Authorize(Roles = Roles.Member)]
     [ApiController]
     [Route("users")]
     public sealed class UserController(
@@ -18,6 +21,7 @@ namespace DevHabit.APi.Controllers
         ) : ControllerBase
     {
         [HttpGet("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<ActionResult<UserDto>> GetUserById(string id)
         {
             string? userId = await userContext.GetUserIdAsync();
@@ -45,7 +49,7 @@ namespace DevHabit.APi.Controllers
 
         
         [HttpGet("me")]
-        public async Task<ActionResult<UserDto>> GetCurrentUser(string id)
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             string? userId = await userContext.GetUserIdAsync();
             if (string.IsNullOrWhiteSpace(userId))
@@ -53,12 +57,8 @@ namespace DevHabit.APi.Controllers
                 return Unauthorized();
             }
 
-            if (id != userId)
-            {
-                return Forbid();
-            }
             UserDto? user = await context.Users
-                .Where(u => u.Id == id)
+                .Where(u => u.Id == userId)
                 .Select(UserQueries.ProjectToDto())
                 .FirstOrDefaultAsync();
 

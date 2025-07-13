@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DevHabit.APi.Data;
+using DevHabit.APi.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,14 +28,40 @@ namespace DevHabit.APi.Extensions
                 await identityDbContext.Database.MigrateAsync();
                 app.Logger.LogInformation("identity Database migrations applied successfully");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                app.Logger.LogInformation("An error occured while applying db migratons");
+                app.Logger.LogInformation(e,"An error occured while applying db migratons");
 
                 throw;
             }
 
+        }
 
+        public static async Task SeedRolesDataAsync(this WebApplication app)
+        {
+            using IServiceScope scope = app.Services.CreateScope();
+            RoleManager<IdentityRole> roleManager =
+                scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            try
+            {
+                if (!await roleManager.RoleExistsAsync(Roles.Member))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(Roles.Member));
+                }
+                if (!await roleManager.RoleExistsAsync(Roles.Admin))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+                }
+
+                app.Logger.LogInformation("successfully created roles");
+            }
+            catch (Exception e)
+            {
+                app.Logger.LogError(e, "An error occured creating roles");
+
+                throw;
+            }
         }
     }
 }
