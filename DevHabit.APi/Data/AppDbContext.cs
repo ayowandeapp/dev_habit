@@ -14,6 +14,7 @@ namespace DevHabit.APi.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<HabitTag> HabitTags { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<GitHubAccessToken> GitHubAccessTokens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //dedicated schema 

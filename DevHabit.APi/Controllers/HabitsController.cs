@@ -155,7 +155,7 @@ namespace DevHabit.APi.Controllers
 
             return Ok(newItems);
         }
-
+/*
         [HttpGet("{id}")]
         [ApiVersion(2.0)]
         public async Task<IActionResult> GetHabitv2(
@@ -204,7 +204,7 @@ namespace DevHabit.APi.Controllers
 
             return Ok(newItems);
         }
-
+*/
         [HttpPost]
         public async Task<ActionResult<HabitDto>> CreateHabit(
             CreateHabitDto createHabitDto,

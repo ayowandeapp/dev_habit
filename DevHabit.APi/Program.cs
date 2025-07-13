@@ -46,12 +46,12 @@ builder
 
 var app = builder.Build();
 
-app.Use(async (context, next) =>
-{
-    Console.WriteLine($"Request Path: {context.Request.Path}");
-    Console.WriteLine($"Auth Header: {context.Request.Headers["Authorization"]}");
-    await next();
-});
+// app.Use(async (context, next) =>
+// {
+//     Console.WriteLine($"Request Path: {context.Request.Path}");
+//     Console.WriteLine($"Auth Header: {context.Request.Headers["Authorization"]}");
+//     await next();
+// });
 
 // app.UseRouting();
 
