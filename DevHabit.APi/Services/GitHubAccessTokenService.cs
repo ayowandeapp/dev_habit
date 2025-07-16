@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevHabit.APi.Services
 {
-    public sealed class GitHubAccessTokenService(AppDbContext context)
+    public sealed class GitHubAccessTokenService(AppDbContext context,
+        EncryptionService encryptionService)
     {
         public async Task Store(
             string userId,
@@ -19,9 +20,11 @@ namespace DevHabit.APi.Services
         {
             GitHubAccessToken? existingToken = await GetAcccessToken(userId, cancellationToken);
 
+            string encryptedToken = encryptionService.Encrypt(accessTokenDto.AccessToken);
+
             if (existingToken is not null)
             {
-                existingToken.Token = accessTokenDto.AccessToken;
+                existingToken.Token = encryptedToken;
                 existingToken.ExpiresAtUtc = DateTime.UtcNow.AddDays(accessTokenDto.ExpiresInDays);
 
             }
@@ -32,7 +35,7 @@ namespace DevHabit.APi.Services
                     {
                         Id = $"gh_{Guid.CreateVersion7()}",
                         UserId = userId,
-                        Token = accessTokenDto.AccessToken,
+                        Token = encryptedToken,
                         ExpiresAtUtc = DateTime.UtcNow.AddDays(accessTokenDto.ExpiresInDays)
                     }
                 );
@@ -45,7 +48,14 @@ namespace DevHabit.APi.Services
         {
             GitHubAccessToken? gitHubAccessToken = await GetAcccessToken(userId, cancellationToken);
 
-            return gitHubAccessToken?.Token;
+            if (gitHubAccessToken is null)
+            {
+                return null;
+            }
+
+            string decryptedtoken = encryptionService.Decrypt(gitHubAccessToken.Token);
+
+            return decryptedtoken;
         }
 
         public async Task Revoke(string userId, CancellationToken cancellationToken = default)
