@@ -18,6 +18,7 @@ namespace DevHabit.APi.Models
         public bool IsArchived { get; set; }
         public DateOnly? EndDate { get; set; }
         public Milestone? Milestone { get; set; }
+        public AutomationSource? AutomationSource { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAtUtc { get; set; } = DateTime.UtcNow;
         public DateTime? LastCompletedAtUtc { get; set; }
@@ -29,6 +30,12 @@ namespace DevHabit.APi.Models
         // the many to many relationship. Hence, 
         public ICollection<Tag> Tags { get; set; } = [];
 
+    }
+
+    public enum AutomationSource
+    {
+        Github = 1,
+        None = 0
     }
 
     public sealed class Milestone

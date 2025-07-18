@@ -20,6 +20,8 @@
           "Microsoft.EntityFrameworkCore.Design": "9.0.6",
           "Microsoft.EntityFrameworkCore.Tools": "10.0.0-preview.5.25277.114",
           "Pomelo.EntityFrameworkCore.MySql": "9.0.0-preview.3.efcore.9.0.0",
+          "Quartz": "3.14.0",
+          "Quartz.Extensions.Hosting": "3.14.0",
           "SonarAnalyzer.CSharp": "10.12.0.118525",
           "Swashbuckle.AspNetCore": "9.0.1",
           "System.Linq.Dynamic.Core": "1.6.6"
@@ -601,6 +603,12 @@
           }
         }
       },
+      "Microsoft.Extensions.Diagnostics.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.7",
+          "Microsoft.Extensions.Options": "9.0.7"
+        }
+      },
       "Microsoft.Extensions.FileProviders.Abstractions/9.0.7": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.7"
@@ -621,6 +629,15 @@
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.725.31702"
           }
+        }
+      },
+      "Microsoft.Extensions.Hosting.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.7",
+          "Microsoft.Extensions.Diagnostics.Abstractions": "9.0.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "9.0.7",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.7"
         }
       },
       "Microsoft.Extensions.Identity.Core/9.0.7": {
@@ -797,6 +814,42 @@
           "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.0.0"
+          }
+        }
+      },
+      "Quartz/3.14.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.7"
+        },
+        "runtime": {
+          "lib/net9.0/Quartz.dll": {
+            "assemblyVersion": "3.14.0.0",
+            "fileVersion": "3.14.0.0"
+          }
+        }
+      },
+      "Quartz.Extensions.DependencyInjection/3.14.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.7",
+          "Microsoft.Extensions.Options": "9.0.7",
+          "Quartz": "3.14.0"
+        },
+        "runtime": {
+          "lib/net9.0/Quartz.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "3.14.0.0",
+            "fileVersion": "3.14.0.0"
+          }
+        }
+      },
+      "Quartz.Extensions.Hosting/3.14.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Hosting.Abstractions": "9.0.0",
+          "Quartz.Extensions.DependencyInjection": "3.14.0"
+        },
+        "runtime": {
+          "lib/net9.0/Quartz.Extensions.Hosting.dll": {
+            "assemblyVersion": "3.14.0.0",
+            "fileVersion": "3.14.0.0"
           }
         }
       },
@@ -1204,6 +1257,13 @@
       "path": "microsoft.extensions.dependencymodel/9.0.6",
       "hashPath": "microsoft.extensions.dependencymodel.9.0.6.nupkg.sha512"
     },
+    "Microsoft.Extensions.Diagnostics.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1K8P7XzuzX8W8pmXcZjcrqS6x5eSSdvhQohmcpgiQNY/HlDAlnrhR9dvlURfFz428A+RTCJpUyB+aKTA6AgVcQ==",
+      "path": "microsoft.extensions.diagnostics.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.diagnostics.abstractions.9.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.FileProviders.Abstractions/9.0.7": {
       "type": "package",
       "serviceable": true,
@@ -1217,6 +1277,13 @@
       "sha512": "sha512-1T7goN3Bj/aYvIv/wd722BK45flY1M7eakQxvqa+bi55RVbtXNTZiCzQbH1pNHBpwAI8ilVrusVPUq+W+gD02Q==",
       "path": "microsoft.extensions.fileproviders.embedded/9.0.7",
       "hashPath": "microsoft.extensions.fileproviders.embedded.9.0.7.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Hosting.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yUKJgu81ExjvqbNWqZKshBbLntZMbMVz/P7Way2SBx7bMqA08Mfdc9O7hWDKAiSp+zPUGT6LKcSCQIPeDK+CCw==",
+      "path": "microsoft.extensions.hosting.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.hosting.abstractions.9.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Identity.Core/9.0.7": {
       "type": "package",
@@ -1329,6 +1396,27 @@
       "sha512": "sha512-jNC/DLeRfFpgklIoSYkX3VoQy+ILY0wIZRtiYZrWknSv3u7BERM1XJcGDY9gt+RliPI07eUHE8utc315cH35hw==",
       "path": "pomelo.entityframeworkcore.mysql/9.0.0-preview.3.efcore.9.0.0",
       "hashPath": "pomelo.entityframeworkcore.mysql.9.0.0-preview.3.efcore.9.0.0.nupkg.sha512"
+    },
+    "Quartz/3.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-j8mY6S0FWbtuEFbStUEZAkkGpZLbSuTT0us1w0DUQqhi+vwg/7XXS36TeH3o34zZoqYGyXvk6jrKnW/p6kS8sg==",
+      "path": "quartz/3.14.0",
+      "hashPath": "quartz.3.14.0.nupkg.sha512"
+    },
+    "Quartz.Extensions.DependencyInjection/3.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CUY9ZaUsmnl8YxPcl3eXmg/1UVWv1NdyATKGaBjfxf8MYH36vgCoerv7aCSjM/oRbdiaBwNnPfNgHMzxUu1p1g==",
+      "path": "quartz.extensions.dependencyinjection/3.14.0",
+      "hashPath": "quartz.extensions.dependencyinjection.3.14.0.nupkg.sha512"
+    },
+    "Quartz.Extensions.Hosting/3.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kbxBND5Nift+qwOud8cjywoLvjcQX+aLt6R7qQcQVg8w84NUNjTsjzZ5zIod9vz7ricSvIaQXGVbhpm7X6yVQA==",
+      "path": "quartz.extensions.hosting/3.14.0",
+      "hashPath": "quartz.extensions.hosting.3.14.0.nupkg.sha512"
     },
     "SonarAnalyzer.CSharp/10.12.0.118525": {
       "type": "package",

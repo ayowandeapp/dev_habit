@@ -42,7 +42,8 @@ builder
     .AddErrorHandling()
     .AddDatabase()
     .AddAplicationServices()
-    .AddAuthenticationServices();
+    .AddAuthenticationServices()
+    .AddBackgroundjobs();
 
 var app = builder.Build();
 

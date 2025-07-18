@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Asp.Versioning;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Common;
+using DevHabit.APi.DTOs.Entries;
 using DevHabit.APi.DTOs.Habits;
+using DevHabit.APi.Jobs;
 using DevHabit.APi.Middleware;
 using DevHabit.APi.Models;
 using DevHabit.APi.Services;
@@ -21,6 +23,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using Quartz;
 
 namespace DevHabit.APi
 {
@@ -118,6 +121,8 @@ namespace DevHabit.APi
             //register sorting definitions
             builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<HabitDto, Habit>>(_ =>
                 HabitMappers.sortMapping);
+            builder.Services.AddSingleton<ISortMappingDefinition, SortMappingDefinition<EntryDto, Entry>>(_ =>
+                EntryMappers.sortMapping);
             builder.Services.AddTransient<SortMappingProvider>();
             builder.Services.AddTransient<TokenProvider>();
 
@@ -142,7 +147,7 @@ namespace DevHabit.APi
                     client.DefaultRequestHeaders
                         .Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
                 });
-                
+
             builder.Services.Configure<EncryptionOptions>(builder.Configuration.GetSection("Encryption"));
             builder.Services.AddTransient<EncryptionService>();
 
@@ -179,7 +184,35 @@ namespace DevHabit.APi
                 });
 
             builder.Services.AddAuthorization();
-            
+
+            return builder;
+        }
+        public static WebApplicationBuilder AddBackgroundjobs(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddQuartz(q =>
+            {
+                // Base job configuration
+                q.SchedulerId = "HabitTracker-Scheduler";
+                q.SchedulerName = "Habit Tracker Job Scheduler";
+
+                q.AddJob<GitHubAutomationSchedularJob>(j => j
+                    .WithIdentity("github-auomation-schedular")
+                );
+    
+                q.AddTrigger(t => t
+                    .ForJob("github-auomation-schedular")
+                    .WithIdentity("github-auomation-schedular-trigger")
+                    .WithSimpleSchedule(s =>
+                    {
+                        s.WithIntervalInMinutes(1).RepeatForever();
+                    })                    
+                );
+
+
+            });
+            // Add Quartz hosted service
+            builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+
             return builder;
         }
     }

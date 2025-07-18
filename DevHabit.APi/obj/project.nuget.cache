@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t39XhpPUvQE=",
+  "dgSpecHash": "TWF40eYFrB8=",
   "success": true,
   "projectFilePath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
   "expectedPackageFiles": [
@@ -40,8 +40,10 @@
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.7\\microsoft.extensions.dependencyinjection.9.0.7.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.7\\microsoft.extensions.dependencyinjection.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.dependencymodel\\9.0.6\\microsoft.extensions.dependencymodel.9.0.6.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\9.0.0\\microsoft.extensions.diagnostics.abstractions.9.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\9.0.7\\microsoft.extensions.fileproviders.abstractions.9.0.7.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.fileproviders.embedded\\9.0.7\\microsoft.extensions.fileproviders.embedded.9.0.7.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\9.0.0\\microsoft.extensions.hosting.abstractions.9.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.identity.core\\9.0.7\\microsoft.extensions.identity.core.9.0.7.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.identity.stores\\9.0.7\\microsoft.extensions.identity.stores.9.0.7.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\microsoft.extensions.logging\\9.0.7\\microsoft.extensions.logging.9.0.7.nupkg.sha512",
@@ -58,6 +60,9 @@
     "C:\\Users\\ovayo\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\mysqlconnector\\2.4.0\\mysqlconnector.2.4.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\9.0.0-preview.3.efcore.9.0.0\\pomelo.entityframeworkcore.mysql.9.0.0-preview.3.efcore.9.0.0.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\quartz\\3.14.0\\quartz.3.14.0.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\quartz.extensions.dependencyinjection\\3.14.0\\quartz.extensions.dependencyinjection.3.14.0.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\quartz.extensions.hosting\\3.14.0\\quartz.extensions.hosting.3.14.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\sonaranalyzer.csharp\\10.12.0.118525\\sonaranalyzer.csharp.10.12.0.118525.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\swashbuckle.aspnetcore\\9.0.1\\swashbuckle.aspnetcore.9.0.1.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\9.0.1\\swashbuckle.aspnetcore.swagger.9.0.1.nupkg.sha512",

@@ -220,3 +220,6 @@ C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\compr
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.Extensions.DependencyInjection.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.Extensions.Hosting.dll
