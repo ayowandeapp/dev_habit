@@ -232,6 +232,48 @@ namespace DevHabit.APi.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("batch")]
+        public async Task<ActionResult<List<Entry>>> CreateEntryBatch(
+            CreateEntryBatchDto createEntryBatchDto,
+            IValidator<CreateEntryBatchDto> validator
+        )
+        {
+            string? userId = await userContext.GetUserIdAsync();
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+            await validator.ValidateAndThrowAsync(createEntryBatchDto);
+
+            var habitIds = createEntryBatchDto.Entries
+                .Select(e => e.HabitId)
+                .ToHashSet();
+            List<Habit> existingHabits = await context.Habits
+                .Where(h => habitIds.Contains(h.Id) && h.UserId == userId)
+                .ToListAsync();
+
+            if (existingHabits.Count != habitIds.Count)
+            {
+                return Problem(
+                    detail: "One or more habit Ids is invalid",
+                    statusCode: StatusCodes.Status400BadRequest
+                );
+            }
+
+            var entries = createEntryBatchDto.Entries
+                .Select(e => e.ToEntity(userId: userId, existingHabits.First(h => h.Id == e.HabitId)))
+                .ToList();
+
+            context.Entries.AddRange(entries);
+            await context.SaveChangesAsync();
+
+            var entryDtos = entries.Select(e => e.ToDto()).ToList();
+            
+            return CreatedAtAction(nameof(GetEntries), entryDtos);
+
+
+        }
     
         
         

@@ -9,7 +9,7 @@ namespace DevHabit.APi.DTOs.Entries
 {
     public static class EntryMappers
     {
-        
+
         //Add sorting definitions for entry entity
         public static readonly SortMappingDefinition<EntryDto, Entry> sortMapping = new()
         {
@@ -17,7 +17,7 @@ namespace DevHabit.APi.DTOs.Entries
                 new SortMapping(nameof(EntryDto.Value), nameof(Entry.Value)),
                 new SortMapping(nameof(EntryDto.Notes), nameof(Entry.Notes)),
                 new SortMapping(nameof(EntryDto.IsArchived), nameof(Entry.IsArchived)),
-                
+
                 new SortMapping(nameof(EntryDto.Date), nameof(Entry.Date)),
                 new SortMapping(nameof(EntryDto.CreatedAtUtc), nameof(Entry.CreatedAtUtc)),
                 new SortMapping(nameof(EntryDto.UpdatedAtUtc), nameof(Entry.UpdatedAtUtc))
@@ -40,6 +40,24 @@ namespace DevHabit.APi.DTOs.Entries
                 Date = dto.Date
             };
             return entry;
+        }
+        
+        public static EntryDto ToDto(this Entry e)
+        {
+            return new EntryDto
+            {
+                Id = e.Id,
+                Value = e.Value,
+                Notes = e.Notes,
+                Source = e.Source,
+                ExternalId = e.ExternalId,
+                IsArchived = e.IsArchived,
+                Date = e.Date,
+                CreatedAtUtc = e.CreatedAtUtc,
+                UpdatedAtUtc = e.UpdatedAtUtc
+
+            };
+
         }
     }
 }
