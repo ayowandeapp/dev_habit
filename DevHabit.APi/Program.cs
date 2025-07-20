@@ -1,5 +1,6 @@
 using DevHabit.APi;
 using DevHabit.APi.Extensions;
+using DevHabit.APi.Middleware;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +76,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler();
+
+app.UseMiddleware<ETagMiddleware>();
 
 app.MapControllers();
 
