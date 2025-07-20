@@ -44,7 +44,8 @@ builder
     .AddDatabase()
     .AddAplicationServices()
     .AddAuthenticationServices()
-    .AddBackgroundjobs();
+    .AddBackgroundjobs()
+    .AddRateLimiting();
 
 var app = builder.Build();
 
@@ -72,10 +73,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseExceptionHandler();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseExceptionHandler();
+app.UseRateLimiter();
 
 app.UseMiddleware<ETagMiddleware>();
 

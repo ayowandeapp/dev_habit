@@ -13,10 +13,12 @@ using DevHabit.APi.Services;
 using DevHabit.APi.Services.Sorting;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevHabit.APi.Controllers
 {
+    [EnableRateLimiting("default")]
     [ApiController]
     [Route("entries")]
     [ApiVersion(1.0)]
