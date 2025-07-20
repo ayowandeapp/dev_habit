@@ -3,12 +3,21 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DevHabit.APi.Middleware
 {
     public class ETagMiddleware(RequestDelegate next)
     {
+        private static readonly string[] ConcurrencyCheckMethods =
+        [
+            HttpMethods.Patch,
+            HttpMethods.Put,
+        ];
+
         public async Task InvokeAsync(HttpContext context, InMemoryETagStore eTagStore)
         {
             if (CanSkipETag(context))
@@ -18,6 +27,22 @@ namespace DevHabit.APi.Middleware
             }
             string resourceUri = context.Request.Path.Value!;
             var ifNoneMatch = context.Request.Headers["IfNoneMatch"].FirstOrDefault();
+            var ifMatch = context.Request.Headers["IfMatch"].FirstOrDefault();
+
+            if (ConcurrencyCheckMethods.Contains(context.Request.Method) &&
+            !string.IsNullOrEmpty(ifMatch)
+            )
+            {
+                string currentETag = eTagStore.GetTag(resourceUri);
+
+                if (!string.IsNullOrWhiteSpace(currentETag) && ifMatch != currentETag)
+                {
+                    context.Response.StatusCode = StatusCodes.Status412PreconditionFailed;
+                    context.Response.ContentLength = 0;
+                    return;
+                }
+                
+            }
 
             var originalStream = context.Response.Body;
             using var ms = new MemoryStream();
@@ -55,12 +80,6 @@ namespace DevHabit.APi.Middleware
             return $"\"{hex}\"";
         }
 
-        private async Task<byte[]> GetResponseBody(MemoryStream ms)
-        {
-            // using var reader = new Stream
-            throw new NotImplementedException();
-        }
-
         private static bool IsETaggableResponse(HttpContext context)
         {
             return context.Response.StatusCode == StatusCodes.Status200OK &&
@@ -88,10 +107,24 @@ namespace DevHabit.APi.Middleware
         {
             ETags.AddOrUpdate(resourceUri, etag, (_, _) => etag);
         }
-
+        
         public void RemoveETag(string resourceUri)
         {
             ETags.TryRemove(resourceUri, out _);
+        }
+        
+        private static string GenerateETag(object resource)
+        {
+            var json = JsonSerializer.Serialize(resource);
+            var content = Encoding.UTF8.GetBytes(json);
+            var hash = SHA256.HashData(content);
+            var hex = Convert.ToHexStringLower(hash);
+            return $"\"{hex}\"";
+        }
+
+        public void SetTag(string resourceUri, object resource)
+        {
+            ETags.AddOrUpdate(resourceUri, GenerateETag(resource), (_, _) => GenerateETag(resource));
         }
     }
 }

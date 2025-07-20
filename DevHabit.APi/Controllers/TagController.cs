@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DevHabit.APi.Data;
 using DevHabit.APi.DTOs.Tags;
+using DevHabit.APi.Middleware;
 using DevHabit.APi.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -80,7 +81,7 @@ namespace DevHabit.APi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateTag(string id, UpdateTagDto updateTagDto)
+        public async Task<ActionResult> UpdateTag(string id, UpdateTagDto updateTagDto, InMemoryETagStore eTagStore)
         {
             Tag? tag = await context.Tags.FirstOrDefaultAsync(t => t.Id == id);
             if (tag is null)
@@ -90,6 +91,7 @@ namespace DevHabit.APi.Controllers
             tag.UpdateFromDto(updateTagDto);
 
             await context.SaveChangesAsync();
+            eTagStore.SetTag(Request.Path.Value!, tag.ToTagDto());
 
             return NoContent();
         }
