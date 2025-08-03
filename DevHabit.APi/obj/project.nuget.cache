@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "N5lBDUm2FcM=",
+  "dgSpecHash": "A5juo2p3uVI=",
   "success": true,
   "projectFilePath": "C:\\Users\\ovayo\\Desktop\\.net\\Project\\DevHabit\\DevHabit.APi\\DevHabit.APi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ovayo\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\asp.versioning.mvc\\8.1.0\\asp.versioning.mvc.8.1.0.nupkg.sha512",
+    "C:\\Users\\ovayo\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\efcore.namingconventions\\9.0.0\\efcore.namingconventions.9.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
     "C:\\Users\\ovayo\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.1\\fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",

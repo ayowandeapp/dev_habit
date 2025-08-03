@@ -25,6 +25,7 @@ namespace DevHabit.APi.Models
     public enum EntrySource
     {
         Manuel = 0,
-        Automation = 1
+        Automation = 1,
+        FileImport = 2
     }
 }

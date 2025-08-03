@@ -12,6 +12,7 @@ using DevHabit.APi.DTOs.Entries;
 using DevHabit.APi.DTOs.Habits;
 using DevHabit.APi.Extensions;
 using DevHabit.APi.Jobs;
+using DevHabit.APi.Jobs.EntryImport;
 using DevHabit.APi.Middleware;
 using DevHabit.APi.Models;
 using DevHabit.APi.Services;
@@ -216,6 +217,17 @@ namespace DevHabit.APi
                     {
                         s.WithIntervalInMinutes(1).RepeatForever();
                     })
+                );
+
+                //Entry import clean up job - run daily 3 AM UTC
+                q.AddJob<CleanUpEntryImportJob>(c => c.WithIdentity("cleanup-entry-imports"));
+
+                q.AddTrigger(c =>
+                    {
+                        c.ForJob("cleanup-entry-imports")
+                            .WithIdentity("cleanup-entry-imports-trigger")
+                            .WithCronSchedule("0 0 3 * * ?", x => x.InTimeZone(TimeZoneInfo.Utc));
+                    }
                 );
 
 
