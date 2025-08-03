@@ -15,7 +15,7 @@ namespace DevHabit.APi.Controllers
     [Route("github")]
     public sealed class GitHubController(
         GitHubAccessTokenService gitHubAccessTokenService,
-        GitHubService gitHubService,
+        RefitGitHubService refitGitHubService,
         UserContext userContext,
         LinkService linkService
     ) : ControllerBase
@@ -64,7 +64,7 @@ namespace DevHabit.APi.Controllers
                 return Unauthorized();
             }
 
-            GitHubUserProfileDto? userProfile = await gitHubService.GetUserProfile(accessToken);
+            GitHubUserProfileDto? userProfile = await refitGitHubService.GetUserProfile(accessToken);
             if (userProfile is null)
             {
                 return NotFound();

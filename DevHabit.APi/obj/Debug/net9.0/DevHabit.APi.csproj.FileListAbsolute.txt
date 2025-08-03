@@ -223,3 +223,7 @@ C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\obj\Debug\net9.0\compr
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.Extensions.DependencyInjection.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Quartz.Extensions.Hosting.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Refit.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Refit.HttpClientFactory.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi\bin\Debug\net9.0\Refit.Newtonsoft.Json.dll

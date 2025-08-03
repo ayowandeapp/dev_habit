@@ -27,6 +27,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Quartz;
+using Refit;
 
 namespace DevHabit.APi
 {
@@ -139,6 +140,7 @@ namespace DevHabit.APi
 
             builder.Services.AddScoped<GitHubAccessTokenService>();
             builder.Services.AddTransient<GitHubService>();
+            builder.Services.AddTransient<RefitGitHubService>();
             builder.Services
                 .AddHttpClient("github")
                 .ConfigureHttpClient(client =>
@@ -150,6 +152,9 @@ namespace DevHabit.APi
                     client.DefaultRequestHeaders
                         .Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
                 });
+            //using refit
+            builder.Services.AddRefitClient<IGitHubApi>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.github.com"));
 
             builder.Services.Configure<EncryptionOptions>(builder.Configuration.GetSection("Encryption"));
             builder.Services.AddTransient<EncryptionService>();
@@ -235,7 +240,7 @@ namespace DevHabit.APi
 
                         ProblemDetailsFactory problemDetailsFactory = context.HttpContext.RequestServices
                             .GetRequiredService<ProblemDetailsFactory>();
-                        ProblemDetails problemDetails = problemDetailsFactory
+                        Microsoft.AspNetCore.Mvc.ProblemDetails problemDetails = problemDetailsFactory
                             .CreateProblemDetails(
                                 context.HttpContext,
                                 StatusCodes.Status429TooManyRequests,
