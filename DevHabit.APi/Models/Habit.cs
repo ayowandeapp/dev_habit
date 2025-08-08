@@ -30,6 +30,11 @@ namespace DevHabit.APi.Models
         // the many to many relationship. Hence, 
         public ICollection<Tag> Tags { get; set; } = [];
 
+        public static string NewId()
+        {
+            return $"h_{Guid.CreateVersion7()}";            
+        }
+
     }
 
     public enum AutomationSource

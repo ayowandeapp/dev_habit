@@ -63,7 +63,7 @@ namespace DevHabit.APi.Controllers
                 .WithIdentity($"process-entry-import-trigger-{importJob.Id}")
                 .StartNow()
                 .Build();
-
+            //start the backgroud process immediately
             await scheduler.ScheduleJob(jobDetail, trigger);
 
             EntryImportJobDto importJobDto = importJob.ToDto();
