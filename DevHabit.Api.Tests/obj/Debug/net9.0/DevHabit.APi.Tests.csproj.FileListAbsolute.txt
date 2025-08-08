@@ -528,9 +528,11 @@ C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\bin\Debug\net9.0
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\bin\Debug\net9.0\DevHabit.APi.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\bin\Debug\net9.0\DevHabit.APi.pdb
-C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\DevHabit.84416B44.Up2Date
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\DevHabit.APi.Tests.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\refint\DevHabit.APi.Tests.dll
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\DevHabit.APi.Tests.pdb
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\DevHabit.APi.Tests.genruntimeconfig.cache
 C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\ref\DevHabit.APi.Tests.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.Api.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\bin\Debug\net9.0\NSubstitute.dll
+C:\Users\ovayo\Desktop\.net\Project\DevHabit\DevHabit.APi.Tests\obj\Debug\net9.0\DevHabit.84416B44.Up2Date

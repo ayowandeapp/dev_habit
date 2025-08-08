@@ -16,6 +16,7 @@ namespace DevHabit.APi.Models
         //we will use this to store the identityId from the identity provider.
         //provider like Auth0, Okta,...
         public string identityId { get; set; }
+        public static string CreateNewId() => $"u_{Guid.CreateVersion7()}";
         
     }
 }

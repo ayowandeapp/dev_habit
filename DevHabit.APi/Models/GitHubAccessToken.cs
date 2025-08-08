@@ -13,5 +13,9 @@ namespace DevHabit.APi.Models
         public DateTime ExpiresAtUtc { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 
+        public static string CreateNewId()
+        {
+            return $"gh_{Guid.CreateVersion7()}";
+        }
     }
 }
